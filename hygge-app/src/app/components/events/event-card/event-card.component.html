@@ -1,0 +1,45 @@
+<nz-card
+  style="width: 300px"
+  [nzCover]="coverTemplate"
+  [nzHoverable]="true"
+  (click)="navigateToEventPage(event.id)"
+>
+  <nz-card-meta
+    [nzTitle]="titleTemplate"
+    [nzDescription]="descriptionTemplate"
+  ></nz-card-meta>
+</nz-card>
+<!-- <ng-template #avatarTemplate>
+  <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+</ng-template> -->
+<ng-template #coverTemplate>
+  @if(event.cover) {
+  <img alt="{{ event.name }} cover image" [src]="event.cover" />
+  }
+</ng-template>
+<ng-template #descriptionTemplate>
+  @if(event.description) {
+  <div class="description">
+    {{ event.description }}
+  </div>
+  } @else {
+  <em>Sans description</em>
+  }
+</ng-template>
+<ng-template #titleTemplate>
+  <div class="dates">
+    <app-event-date
+      [startDate]="event.start_date"
+      [endDate]="event.end_date"
+      format="short"
+      fontSize="small"
+    />
+  </div>
+  @if(event.name) {
+  <div class="title">
+    {{ event.name }}
+  </div>
+  } @else {
+  <em>Evènement sans titre</em>
+  }
+</ng-template>

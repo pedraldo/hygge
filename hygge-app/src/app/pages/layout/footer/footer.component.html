@@ -1,0 +1,20 @@
+<div class="container">
+  <a routerLink="/events" routerLinkActive="active" nz-button nzSize="large">
+    <span nz-icon nzType="calendar" nzTheme="outline"></span>
+  </a>
+  <div class="camera-container">
+    <a id="camera" nz-button nzSize="large" (click)="onCameraClick()">
+      <span nz-icon nzType="camera" nzTheme="outline"></span>
+      <input
+        #inputFile
+        id="inputFile"
+        type="file"
+        accept="image/*;capture=camera"
+        (change)="onInputFileChange($event)"
+      />
+    </a>
+  </div>
+  <a routerLink="/profile" routerLinkActive="active" nz-button nzSize="large">
+    <span nz-icon nzType="user" nzTheme="outline"></span>
+  </a>
+</div>

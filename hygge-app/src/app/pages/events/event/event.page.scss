@@ -1,0 +1,45 @@
+:host {
+  .container {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+
+    .cover {
+      height: 200px;
+      margin: -40px -40px 0 -40px;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .infos {
+    }
+
+    .participants {
+      .list {
+        &-header {
+          display: flex;
+          gap: 10px;
+        }
+
+        &-items {
+          min-width: 280px;
+          width: 60%;
+          max-height: 280px;
+          overflow-y: auto;
+        }
+      }
+    }
+
+    .gallery {
+      img {
+        width: 20%;
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="logo">
+    <img src="assets/Hygge-primary.png" alt="Hygge logo primary" />
+  </div>
+  <div class="child">
+    <div nz-row class="imgDiv">
+      <h1>Créer un compte</h1>
+    </div>
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-control nzHasFeedback [nzErrorTip]="firstnameErrorTpl">
+          <input
+            nz-input
+            placeholder="Prénom"
+            name="firstname"
+            formControlName="firstname"
+          />
+          <ng-template #firstnameErrorTpl let-control>
+            @if(control.hasError('required')) { Veuillez entrer votre prénom }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control nzHasFeedback [nzErrorTip]="lastnameErrorTpl">
+          <input
+            nz-input
+            placeholder="Nom"
+            name="lastname"
+            formControlName="lastname"
+          />
+          <ng-template #lastnameErrorTpl let-control>
+            @if(control.hasError('required')) { Veuillez entrer votre nom }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control nzHasFeedback nzErrorTip="Email invalide">
+          <input
+            nz-input
+            type="email"
+            placeholder="Email"
+            name="email"
+            formControlName="email"
+            email
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control nzHasFeedback [nzErrorTip]="errorPass">
+          <input
+            nz-input
+            type="password"
+            placeholder="Mot de passe"
+            name="password"
+            formControlName="password"
+          />
+          <ng-template #errorPass let-control>
+            @if (control.hasError('required')) { Mot de passe requis }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control nzFeedback [nzErrorTip]="errorTpl">
+          <input
+            nz-input
+            type="password"
+            placeholder="Confirmez le mot de passe"
+            name="confirmPassword"
+            formControlName="confirmPassword"
+          />
+          <ng-template #errorTpl let-control>
+            @if (control.hasError('required')) { Veuillez confirmer votre mot de
+            passe } @if (control.hasError('confirm')) { Confirmation différente
+            du mot de passe }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <button
+        nz-button
+        class="login-form-button login-form-margin"
+        nzType="primary"
+        [disabled]="!validateForm.valid"
+      >
+        S'inscrire
+      </button>
+      Ou <a routerLink="/auth/login">se connecter</a>
+    </form>
+  </div>
+</div>

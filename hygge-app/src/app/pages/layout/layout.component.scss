@@ -1,0 +1,75 @@
+:host {
+  display: flex;
+  justify-content: center;
+
+  nz-layout {
+    min-height: 100vh;
+    width: 100vw;
+
+    nz-header {
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: none;
+      z-index: 1;
+
+      #layout-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 1024px;
+        width: 100%;
+        background-color: #146c78;
+        padding: 0 20px;
+        -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+        -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+        box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+      }
+    }
+
+    nz-content {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      background-color: lightgray;
+      padding: 64px 0;
+
+      main {
+        max-width: 1024px;
+        width: 100%;
+        padding: 20px;
+        background-color: white;
+      }
+    }
+
+    nz-footer {
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      line-height: 64px;
+      background: none;
+      z-index: 1;
+
+      #layout-footer {
+        max-width: 1024px;
+        width: 100%;
+        background-color: #146c78;
+        padding: 0 20px;
+        display: flex;
+        -webkit-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+        -moz-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+        box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+      }
+    }
+  }
+}

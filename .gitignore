@@ -1,0 +1,4 @@
+*.mdj
+/minio-data
+/minio-dev-data
+.env

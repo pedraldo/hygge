@@ -1,0 +1,49 @@
+<div class="targeted-event" (click)="showModal()">
+  @if (targetEvent$ | async; as targetEvent) {
+  <span class="icon" nz-icon nzType="camera"></span>
+  <span class="name"> {{ targetEvent?.name }} </span>
+  } @else {
+  <button nz-button nzType="default" nzGhost>
+    <span nz-icon nzType="camera"></span>
+    Cibler un évènement
+  </button>
+  }
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Evènement ciblé"
+  [nzFooter]="null"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
+    <!-- TODO : if no event connected to current user, 
+      display message and button to redirect to events page (where create event button is) -->
+    <nz-select
+      nzAllowClear
+      nzPlaceHolder="Selectionner un évènement"
+      [(ngModel)]="selectedValue.id"
+      [nzDropdownMatchSelectWidth]="false"
+      style="width: 100%"
+    >
+      <!-- @for(event of events; track event.id) {
+      <nz-option [nzLabel]="event.name" [nzValue]="event"></nz-option>
+      } -->
+      @for(event of (events$ | async); track event.id) {
+      <nz-option [nzLabel]="event.name" [nzValue]="event.id"></nz-option>
+      }
+    </nz-select>
+    <div style="text-align: right">
+      <button
+        style="margin-top: 20px"
+        nz-button
+        nzType="primary"
+        [disabled]="!selectedValue"
+        (click)="handleOk()"
+      >
+        Valider
+      </button>
+    </div>
+  </ng-container>
+</nz-modal>

@@ -1,0 +1,95 @@
+<div class="container">
+  @if (event) {
+  <div class="cover">
+    <img [src]="event.cover" alt="Event {{ event.name }} cover image" />
+  </div>
+  <div class="infos">
+    <div class="dates">
+      <app-event-date
+        [startDate]="event.start_date"
+        [endDate]="event.end_date"
+        format="long"
+        fontSize="medium"
+      />
+    </div>
+    <h1 class="name">{{event.name }}</h1>
+    <div class="description">{{event.description }}</div>
+  </div>
+  <div class="participants">
+    <div class="list">
+      <div class="list-header">
+        <h2>Participants</h2>
+        <button
+          nz-button
+          nzType="primary"
+          nzSize="default"
+          nzShape="circle"
+          (click)="openInviteUsersModal()"
+        >
+          <span nz-icon nzType="user-add"></span>
+        </button>
+      </div>
+      <div class="list-items">
+        <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
+          @for (user of event.users; track user) {
+          <nz-list-item>
+            <nz-list-item-meta [nzAvatar]="user.avatar">
+              <nz-list-item-meta-title>
+                <span>{{ user.firstname}} {{ user.lastname }}</span>
+                <button
+                  nz-button
+                  nzType="text"
+                  (click)="removeUserFromParticipants(user.id)"
+                >
+                  <span nz-icon nzType="close"></span>
+                </button>
+              </nz-list-item-meta-title>
+            </nz-list-item-meta>
+          </nz-list-item>
+          } @if (event.users.length === 0) {
+          <em>Aucun(e) participant(e)</em> }
+        </nz-list>
+      </div>
+    </div>
+  </div>
+  <div class="gallery">
+    <h2>Gallerie</h2>
+    @if(imgs.length) {
+    <!-- <nz-image-group>
+        @for (img of imgs; track img) {
+        <img nz-image [nzSrc]="img" alt="" />
+        }
+      </nz-image-group> -->
+
+    <lightgallery [settings]="settings">
+      @for (img of imgs; track img) {
+      <a [href]="img">
+        <img [src]="img" />
+      </a>
+      }
+    </lightgallery>
+    } @else {
+    <em>Aucun média</em>
+    }
+  </div>
+  } @else if(loading) {
+  <p>Chargement ...</p>
+  } @else {
+  <p>Erreur lors du chargement de l'évènement</p>
+  }
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Inviter des personnes à l'évènement"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  nzOkText="Valider"
+>
+  <ng-container *nzModalContent>
+    <app-event-invite-user
+      (selectUser)="onSelectUserToInvite($event)"
+      [excludedUsersIds]="excludedUsersIds"
+    />
+  </ng-container>
+</nz-modal>

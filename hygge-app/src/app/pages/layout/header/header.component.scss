@@ -1,0 +1,31 @@
+:host {
+  .container {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .left-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      img#logo {
+        height: 48px;
+      }
+    }
+
+    .center-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .right-container {
+      max-width: 70%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+}

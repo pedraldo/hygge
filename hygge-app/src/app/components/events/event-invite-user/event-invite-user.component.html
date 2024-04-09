@@ -1,0 +1,31 @@
+<nz-select
+  nzMode="multiple"
+  nzPlaceHolder="Sélectionnez des utilisateurs"
+  nzShowSearch
+  nzServerSearch
+  [(ngModel)]="selectedUsers"
+  (ngModelChange)="selectUser.emit(selectedUsers)"
+  (nzOnSearch)="onSearch($event)"
+  [nzNotFoundContent]="noData"
+>
+  @for(o of filteredUsers; track o) { @if(isLoading) {
+  <nz-option nzDisabled nzCustomContent>
+    <span nz-icon nzType="loading" class="loading-icon"></span>
+    Chargement ...
+  </nz-option>
+  } @else {
+  <nz-option
+    *ngIf="!isLoading"
+    [nzValue]="o"
+    [nzLabel]="o.firstname + ' ' + o.lastname"
+    nzCustomContent
+  >
+    <nz-avatar nzIcon="user" [nzSrc]="o.avatar"></nz-avatar>
+    {{ o.firstname }} {{ o.lastname }}
+  </nz-option>
+  } }
+</nz-select>
+<ng-template #noData>
+  @if(isValueTooShort) { Tapez au moins 3 caractères } @if(!isValueTooShort &&
+  filteredUsers.length===0) { Aucun résultat }
+</ng-template>

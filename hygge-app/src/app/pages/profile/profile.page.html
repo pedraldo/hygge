@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Mon compte</h1>
+  <div class="infos">
+    @if(user$ | async; as user) {
+    <nz-avatar [nzSize]="128" nzIcon="user" [nzSrc]="user.avatar"></nz-avatar>
+    <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+    <h4>{{ user.email }}</h4>
+    }
+    <button nz-button nzType="primary" (click)="logout()">Déconnexion</button>
+  </div>
+</div>

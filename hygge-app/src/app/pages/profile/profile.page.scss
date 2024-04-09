@@ -1,0 +1,23 @@
+:host {
+  .container {
+    .infos {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      nz-avatar {
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        margin-bottom: 0;
+      }
+
+      button {
+        margin-top: 20px;
+      }
+    }
+  }
+}

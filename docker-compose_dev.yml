@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: postgres_hygge_dev_container
+    image: postgres
+    hostname: localhost
+    ports:
+      - '6500:5432'
+    env_file:
+      - .env.dev
+    environment:
+      - POSTGRES_USER=hyggeuser
+      - POSTGRES_PASSWORD=hyggepassword
+      - POSTGRES_DB=hyggedb
+    volumes:
+      - postgres-dev-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  minio-server:
+    image: minio/minio
+    container_name: minio_server_hygge_dev_container
+    depends_on:
+      - postgres
+    restart: always
+    volumes:
+      - ${MINIO_DATA_ROOT_DIR}:/data
+    ports:
+      - '9000:9000'
+    env_file:
+      - .env.dev
+    environment:
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+    command: server /data
+
+  minio-client:
+    image: minio/mc
+    container_name: minio_client_hygge_dev_container
+    depends_on:
+      - minio-server
+    env_file:
+      - .env.dev
+    entrypoint: >
+      /bin/sh -c "
+      sleep 10;
+      /usr/bin/mc config;
+      /usr/bin/mc config host add myminio http://minio-server:9000 ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY};
+      /usr/bin/mc mb myminio/${MINIO_BUCKET_NAME};
+      "
+volumes:
+  postgres-dev-data:
+

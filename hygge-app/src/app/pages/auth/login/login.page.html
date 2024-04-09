@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="logo">
+    <img src="assets/Hygge-primary.png" alt="Hygge logo primary" />
+  </div>
+  <nz-spin [nzSpinning]="isSpinning" nzSize="large" nzTip="Chargement ...">
+    <div class="child">
+      <div nz-row class="imgDiv">
+        <h1>Connexion</h1>
+      </div>
+      <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Veuillez entrer votre email">
+            <nz-input-group nzPrefixIcon="user">
+              <input
+                type="email"
+                nz-input
+                formControlName="email"
+                placeholder="Email"
+                email
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Veuillez entrer votre mot de passe">
+            <nz-input-group nzPrefixIcon="lock">
+              <input
+                type="password"
+                nz-input
+                formControlName="password"
+                placeholder="Mot de passe"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button
+          nz-button
+          class="login-form-button login-form-margin"
+          nzType="primary"
+          [disabled]="!validateForm.valid"
+        >
+          Se connecter
+        </button>
+        Ou <a routerLink="/auth/register">créer un compte</a>
+      </form>
+    </div>
+  </nz-spin>
+</div>

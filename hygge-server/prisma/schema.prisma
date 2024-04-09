@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id              String   @id @default(uuid())
+  name            String
+  description     String?
+  start_date      DateTime
+  end_date        DateTime
+  cover           String
+  medias          Media[]
+  users_targeters User[]   @relation("user_target_event")
+  users           User[]   @relation("users_events")
+}
+
+model User {
+  id              String  @id @default(uuid())
+  firstname       String
+  lastname        String
+  email           String  @unique
+  password        String
+  avatar          String
+  target_event_id String?
+  medias          Media[]
+  target_event    Event?  @relation("user_target_event", fields: [target_event_id], references: [id])
+  events          Event[] @relation("users_events")
+}
+
+model Media {
+  id         String  @id @default(uuid())
+  event_id   String
+  creator_id String
+  filename   String  @unique
+  etag       String
+  is_cover   Boolean @default(false)
+  user       User    @relation(fields: [creator_id], references: [id])
+  event      Event   @relation(fields: [event_id], references: [id])
+}

@@ -1,0 +1,32 @@
+:host {
+  max-width: 100%;
+
+  .targeted-event {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+
+    .icon {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .name {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+
+      &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 15px;
+        border: 1px dashed white;
+      }
+    }
+  }
+}

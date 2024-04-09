@@ -1,0 +1,129 @@
+<div class="container">
+  <div class="header">
+    <h1>Evènements</h1>
+    <button
+      nz-button
+      nzType="primary"
+      nzSize="large"
+      nzShape="round"
+      (click)="showModal()"
+    >
+      <span nz-icon nzType="plus"></span>
+      Créer
+    </button>
+  </div>
+  <div class="cards-container">
+    @for(event of (events$ | async); track event) {
+    <app-event-card [event]="event" />
+    }
+  </div>
+</div>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Créer un évènement"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzFooter]="null"
+>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label nzRequired>Nom</nz-form-label>
+        <nz-form-control nzErrorTip="Veuillez entrer un nom d'évènement">
+          <input
+            formControlName="name"
+            type="text"
+            nz-input
+            placeholder="Nom de l'évènement"
+            name="name"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Description</nz-form-label>
+        <nz-form-control>
+          <textarea
+            formControlName="description"
+            nz-input
+            rows="2"
+            placeholder="Description de l'évènement"
+            name="description"
+          ></textarea>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Couverture</nz-form-label>
+        <nz-form-control>
+          <nz-upload
+            [(nzFileList)]="fileList"
+            [nzDisabled]="!!fileList.length"
+            [nzShowButton]="!fileList.length"
+            [nzBeforeUpload]="beforeUpload"
+            name="cover"
+          >
+            <button nz-button type="button">
+              <span nz-icon nzType="upload"></span>
+              Charger une image
+            </button>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>Date / heure de début</nz-form-label>
+        <nz-form-control
+          nzErrorTip="Veuillez entrer une date et une heure de début"
+        >
+          <nz-date-picker
+            formControlName="startDate"
+            nzFormat="dd-MM-yyyy"
+            name="startDate"
+          ></nz-date-picker>
+          <nz-time-picker
+            formControlName="startTime"
+            nzFormat="HH:mm"
+            name="startTime"
+            style="margin-left: 5px"
+          ></nz-time-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>Date / heure de fin</nz-form-label>
+        <nz-form-control
+          nzErrorTip="Veuillez entrer une date et une heure de fin"
+        >
+          <nz-date-picker
+            formControlName="endDate"
+            nzFormat="dd-MM-yyyy"
+            name="endDate"
+          ></nz-date-picker>
+          <nz-time-picker
+            formControlName="endTime"
+            nzFormat="HH:mm"
+            name="endTime"
+            style="margin-left: 5px"
+          ></nz-time-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Invités</nz-form-label>
+        <nz-form-control>
+          <app-event-invite-user
+            (selectUser)="onSelectUserToInvite($event)"
+            [excludedUsersIds]="[userProfile.id]"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <div
+            style="display: flex; justify-content: flex-end; margin-top: 20px"
+          >
+            <button nz-button nzType="primary" [disabled]="!validateForm.valid">
+              Valider
+            </button>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>
