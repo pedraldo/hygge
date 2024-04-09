@@ -13,7 +13,7 @@ A simple web app allowing users to take and share instantly pictures related to 
 #### Containers
 
 --> Clone the project.  
---> Go to the project root directory : `cd hygge`
+--> Go to the project root directory : `cd hygge`  
 --> Launch the docker compose dev file to create a container for the PostgreSQL database an a container for Minio (you need to have Docker installed on your computer) :
 
 ```
@@ -27,22 +27,22 @@ You can verify that both containers are running (with `docker ps`) :
 
 #### Server
 
---> Go to hygge server directory : `cd hygge-server`
+--> Go to hygge server directory : `cd hygge-server`  
 --> Install dependencies : `npm i`  
---> Configure environment variables. To do so, rename root file `.env.sample` to `.env.dev`
---> Run database initialisation script : `npm run init:db`
-This script configures the database schema (tables) and seeds it with some data
+--> Configure environment variables. To do so, rename root file `.env.sample` to `.env.dev`  
+--> Run database initialisation script : `npm run init:db`  
+This script configures the database schema (tables) and seeds it with some data  
 --> Start server : `npm start`
 
 #### Front
 
---> Go to hygge app directory : `cd ../hygge-app` (from hygge-server)
---> Install dependencies : `npm i`
+--> Go to hygge app directory : `cd ../hygge-app` (from hygge-server)  
+--> Install dependencies : `npm i`  
 --> Start app : `npm start`
 
 Application is now available at http://localhost:4200/
 
-If you want to test the app with a mobile device, instead of starting the app with `npm start` command, use `npm run start:host`.
+If you want to test the app with a mobile device, instead of starting the app with `npm start` command, use `npm run start:host`.  
 Your terminal will display the your local IP address with 4200 port that you have to enter in your mobile device browser.
 
 ⚠️ With a mobile device, you will be able to take pictures but not to visualize them (same for pictures from other users / devices).
