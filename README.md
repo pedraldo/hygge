@@ -17,7 +17,7 @@ A simple web app allowing users to take and share instantly pictures related to 
 --> Launch the docker compose dev file to create a container for the PostgreSQL database an a container for Minio (you need to have Docker installed on your computer) :
 
 ```
-docker-compose -f docker-compose_dev.yml up -d
+docker-compose -f docker-compose_dev.yml --env-file .env.dev  up -d
 ```
 
 You can verify that both containers are running (with `docker ps`) :
@@ -29,14 +29,14 @@ You can verify that both containers are running (with `docker ps`) :
 
 --> Go to hygge server directory : `cd hygge-server`  
 --> Install dependencies : `npm i`  
---> Configure environment variables. To do so, rename root file `.env.sample` to `.env.dev`  
+--> Configure environment variables. To do so, rename root file `.env.sample` to `.env.dev`. You can use command `mv .env.sample .env.dev`  
 --> Run database initialisation script : `npm run init:db`  
 This script configures the database schema (tables) and seeds it with some data  
 --> Start server : `npm start`
 
 #### Front
 
---> Go to hygge app directory : `cd ../hygge-app` (from hygge-server)  
+--> Open new terminal instance and go to hygge app directory : `cd ../hygge-app` (from hygge-server)  
 --> Install dependencies : `npm i`  
 --> Start app : `npm start`
 
